@@ -1,0 +1,47 @@
+source /opt/ros/humble/setup.bash
+colcon build --cmake-clean-cache
+source install/setup.bash
+ros2 launch robot_description dual_robot.launch.py
+
+
+
+
+# Terminal 2: leader Nav2 stack
+
+source install/setup.bash
+ros2 launch rm_navigation rm_navigation.launch.py
+
+# Terminal 3: follower nav2 stack
+
+source install/setup.bash
+ros2 launch rm_navigation rm_navigation_follower.launch.py slam:=false
+
+# Terminal 4: follower bot behavior
+source install/setup.bash
+ros2 launch follower_nav2_pkg follower_behavior_launch.py
+
+
+
+
+
+
+# Terminal 5 (when ready): Trigger litter
+source install/setup.bash
+ros2 topic pub --once /litter_trigger std_msgs/Bool "data: true"
+
+
+# To kill all processes:
+
+pkill -9 -f "ign gazebo"
+pkill -9 -f "ruby"
+pkill -9 -f "parameter_bridge"
+pkill -9 -f "ros2"
+pkill -9 -f "rviz"
+
+# leader navigation test:
+ros2 action send_goal /navigate_to_pose nav2_msgs/action/NavigateToPose "{pose: {header: {frame_id: 'map'}, pose: {position: {x: 3.0, y: 0, z: 0 }}}}"
+
+# follower navigation test:
+ros2 action send_goal /follower/navigate_to_pose nav2_msgs/action/NavigateToPose "{pose: {header: {frame_id: 'follower/odom'}, pose: {position: {x: -2.0, y: 1.0, z: 0.0}}}}"
+
+

@@ -1,0 +1,28 @@
+follower_behavior_node:
+  ros__parameters:
+    # Distance leader must travel before dropping a breadcrumb (meters)
+    breadcrumb_distance: 0.5
+
+    # Minimum distance to maintain from leader during following (meters)
+    min_follow_distance: 1.0
+
+    # How far behind the leader to park for litter pickup (meters)
+    park_distance: 0.4
+
+    # How far leader must move from follower before resuming following (meters)
+    resume_distance: 1.5 
+
+    # Leader's odometry topic
+    leader_odom_topic: /odom
+
+    # Follower's NavigateToPose action server
+    follower_action: /follower/navigate_to_pose
+
+    # Litter detection trigger topic (std_msgs/Bool)
+    litter_topic: /litter_detected
+
+    # Goal tolerance
+    goal_tolerance: 0.3
+
+    # Use simulation time
+    use_sim_time: true

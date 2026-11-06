@@ -1,0 +1,24 @@
+leader_behavior_node:
+  ros__parameters:
+    waypoints: [1.0, -2.0,
+                1.0, -4.0,
+                1.0, -6.0,
+                1.0, -8.0,]
+
+    # Leader's NavigateToPose action server
+    leader_action: /navigate_to_pose
+
+    # Litter detection topic (published by this node for follower)
+    litter_topic: /litter_detected
+
+    # Leader's odometry topic
+    leader_odom_topic: /odom
+
+    # Time to wait simulating arm pickup (seconds)
+    pickup_wait_time: 2.0
+
+    # Frame for goal poses
+    goal_frame: map
+
+    # Use simulation time
+    use_sim_time: true
